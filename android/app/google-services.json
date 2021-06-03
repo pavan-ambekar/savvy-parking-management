@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "139389730069",
+    "project_id": "savvy-parking-management",
+    "storage_bucket": "savvy-parking-management.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:139389730069:android:cb4853ac5d7bd1a1373d1c",
+        "android_client_info": {
+          "package_name": "app.web.savvy_parking_management"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "139389730069-gm5ika20268nl65tc9cfo6h40h91obgv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.web.savvy_parking_management",
+            "certificate_hash": "00d1881d1408de4b17dad0e503f103d4eb0b6bc9"
+          }
+        },
+        {
+          "client_id": "139389730069-glckdnpqm6pnu6754jiclfcgq8q0emaq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDxrg23ikYyK5v-A0In58uFNizTw1dO6A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "139389730069-glckdnpqm6pnu6754jiclfcgq8q0emaq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
