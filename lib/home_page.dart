@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:savvy_parking_management/authentication_service.dart';
 import 'package:provider/provider.dart';
 import 'dart:math';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MapUtils {
   MapUtils._();
@@ -29,6 +30,20 @@ class _HomePageState extends State<HomePage> {
   int mothiSlots = Random().nextInt(100);
   int spSlots = Random().nextInt(100);
   int royalSlots = Random().nextInt(100);
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+  void _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    setState(() {
+      mothiSlots = Random().nextInt(100);
+      spSlots = Random().nextInt(100);
+      royalSlots = Random().nextInt(100);
+    });
+    // if failed,use refreshFailed()
+    _refreshController.refreshCompleted();
+  }
+
   final snackBar = SnackBar(
     content: Text('Your Slot is Successfully Booked.'),
   );
@@ -88,37 +103,54 @@ class _HomePageState extends State<HomePage> {
         ),
         body: LayoutBuilder(builder: (context, constraints) {
           if (constraints.maxWidth <= 600) {
-            return ListView(
-              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
-              children: cardList(context),
+            return SmartRefresher(
+              physics: BouncingScrollPhysics(),
+              controller: _refreshController,
+              onRefresh: _onRefresh,
+              child: ListView(
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
+                children: cardList(context),
+              ),
             );
           } else if (constraints.maxWidth <= 850) {
-            return (GridView.count(
-              primary: false,
-              padding: const EdgeInsets.all(20),
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              crossAxisCount: 2,
-              children: cardList(context),
-            ));
+            return SmartRefresher(
+                physics: BouncingScrollPhysics(),
+                controller: _refreshController,
+                onRefresh: _onRefresh,
+                child: GridView.count(
+                  primary: false,
+                  padding: const EdgeInsets.all(20),
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  crossAxisCount: 2,
+                  children: cardList(context),
+                ));
           } else if (constraints.maxWidth <= 1300) {
-            return (GridView.count(
-              primary: false,
-              padding: const EdgeInsets.all(20),
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              crossAxisCount: 3,
-              children: cardList(context),
-            ));
+            return SmartRefresher(
+                physics: BouncingScrollPhysics(),
+                controller: _refreshController,
+                onRefresh: _onRefresh,
+                child: GridView.count(
+                  primary: false,
+                  padding: const EdgeInsets.all(20),
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  crossAxisCount: 3,
+                  children: cardList(context),
+                ));
           } else {
-            return (GridView.count(
-              primary: false,
-              padding: const EdgeInsets.all(20),
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              crossAxisCount: 4,
-              children: cardList(context),
-            ));
+            return SmartRefresher(
+                physics: BouncingScrollPhysics(),
+                controller: _refreshController,
+                onRefresh: _onRefresh,
+                child: GridView.count(
+                  primary: false,
+                  padding: const EdgeInsets.all(20),
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  crossAxisCount: 4,
+                  children: cardList(context),
+                ));
           }
         }));
   }
